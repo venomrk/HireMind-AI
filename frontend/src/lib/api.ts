@@ -38,8 +38,10 @@ api.interceptors.response.use(
 export const authApi = {
     register: (data: { email: string; password: string; full_name?: string; company_name?: string }) =>
         api.post("/auth/register", data),
-    login: (data: { email: string; password: string }) =>
-        api.post("/auth/login", data),
+    login: (data: URLSearchParams) =>
+        api.post("/auth/login", data, {
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }),
     me: () => api.get("/auth/me"),
 };
 
